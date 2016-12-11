@@ -1,7 +1,0 @@
-HTTP/1.1 302 Found
-Date: Sun, 11 Dec 2016 14:49:55 GMT
-Server: Apache/2.4.23 (Win32) OpenSSL/1.0.2h PHP/5.6.28
-X-Powered-By: PHP/5.6.28
-Set-Cookie: PHPSESSID=2cblimkjg3ddu8kusq9n6pec92; path=/
-
-[...truncated...]
