@@ -1,0 +1,16 @@
+HTTP/1.1 200 Partial Content
+Date: Sun, 11 Dec 2016 14:50:15 GMT
+Server: Apache/2.4.23 (Win32) OpenSSL/1.0.2h PHP/5.6.28
+X-Powered-By: PHP/5.6.28
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+Content-Range: bytes 0-161/162
+Content-Length: 162
+Keep-Alive: timeout=5, max=52
+Connection: Keep-Alive
+Content-Type: text/html; charset=UTF-8
+
+<br />
+<b>Warning</b>:  session_destroy(): Session object destruction failed in <b>C:\Users\karas\PhpstormProjects\krypto4\logout.php</b> on line <b>10</b><br />
+Q
