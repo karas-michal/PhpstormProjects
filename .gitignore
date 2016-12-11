@@ -61,3 +61,8 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+.idea/copyright/profiles_settings.xml
+*.xml
+.idea/PhpstormProjects.iml
+*.iml
+CSRFTester-1.0/run.bat
