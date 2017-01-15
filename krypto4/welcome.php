@@ -5,12 +5,18 @@
  * Date: 21.11.2016
  * Time: 15:14
  */
+include_once("libs/csrf/csrfprotector.php");
+
     include('session.php');
+csrfProtector::init();
 if($_SERVER["REQUEST_METHOD"] == "POST" && $login_session != "admin") {
 // username and password sent from form
     $myiban = mysqli_real_escape_string($db, $_POST['iban']);
     $mytytulem = mysqli_real_escape_string($db, $_POST['tytulem']);
     $myamount = mysqli_real_escape_string($db, $_POST['amount']);
+    $myiban = htmlspecialchars(strip_tags($myiban));
+    $mytytulem = htmlspecialchars(strip_tags($mytytulem));
+    $myamount = htmlspecialchars(strip_tags($myamount));
     $sql = "INSERT INTO transactions (from_user, to_user, amount, tytulem, IBAN) VALUES(".
         "(SELECT id FROM users WHERE username = '$login_session'), ".
         "(SELECT id FROM users WHERE iban='$myiban'), ".
@@ -23,6 +29,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && $login_session != "admin") {
     $_SESSION['amount'] = $myamount;
     header("location: confirm.php");
 }
+
 ?>
 <html>
 
@@ -49,7 +56,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && $login_session != "admin") {
 </head>
 
 <body>
-<h1>Welcome <?php echo $login_session; ?></h1>
+<h1>Welcome <?php echo json_encode($login_session); ?></h1>
 <div style = "margin: 10em;">
 
     <form method = "post">
@@ -70,11 +77,11 @@ if ($login_session == "admin") {
 
         /* fetch associative array */
         while ($row = $result->fetch_assoc()) {
-            echo "id: " . $row["id"] . " ";
-            echo "do: " . $row["IBAN"] . " ";
-            echo "kwota: " . $row["amount"] . " ";
-            echo "data: " . $row["data"] . " ";
-            echo "zatwierdzone: " . $row["wykonano"] . " ";
+            echo "id: " . json_encode($row["id"] . " ");
+            echo "do: " . json_encode($row["IBAN"] . " ");
+            echo "kwota: " . json_encode($row["amount"] . " ");
+            echo "data: " . json_encode($row["data"] . " ");
+            echo "zatwierdzone: " . json_encode($row["wykonano"] . " ");
             echo "<form action='' method='POST'>
            <input type='submit' name='submit" . $row["id"] . "' />
             </form>";
@@ -84,7 +91,8 @@ if ($login_session == "admin") {
                 if ($db->query($sql2) === TRUE) {
                     echo "Record updated successfully";
                 } else {
-                    echo "Error updating record: " . $db->error;
+                    //echo "Error updating record: " . $db->error;
+                    echo "error wrong data";
                 }
             }
 

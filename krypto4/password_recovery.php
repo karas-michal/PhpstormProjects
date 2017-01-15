@@ -17,7 +17,8 @@
  *                         to select from
  * @return string
  */
-function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_~')
+include_once("libs/csrf/csrfprotector.php");
+function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
 {
     $str = '';
     $max = mb_strlen($keyspace, '8bit') - 1;
@@ -32,7 +33,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     if(isset($_POST['username'])) {
         $myusername = mysqli_real_escape_string($db, $_POST['username']);
         $mymail = mysqli_real_escape_string($db, $_POST['email']);
-        $sql = "SELECT id FROM users WHERE username = '$myusername' and email ='$mymail'";
+        //$sql = "SELECT id FROM users WHERE username = '$myusername' and email ='$mymail'";
+        $mypassword = htmlspecialchars(strip_tags($mypassword));
+        $myusername = htmlspecialchars(strip_tags($myusername));
+        $sql = "SELECT id FROM users WHERE username = '$myusername' and passcode = '$mypassword'";
         $result = mysqli_query($db, $sql);
         if (!$result) {
             printf("Error: %s\n", mysqli_error($db));

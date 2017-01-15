@@ -5,9 +5,13 @@
  * Date: 11.12.2016
  * Time: 20:46
  */
+include_once("libs/csrf/csrfprotector.php");
+
 include('session.php');
+csrfProtector::init();
 $sql = "SELECT * FROM transactions WHERE from_user = ".
     "(SELECT id FROM users WHERE username = '$login_session')";
+//echo  mysqli_real_escape_string($db, htmlspecialchars(strip_tags(addslashes($login_session))));
 ?>
 <html>
 
@@ -37,11 +41,11 @@ if ($result = $db->query($sql)) {
 
     /* fetch associative array */
     while ($row = $result->fetch_assoc()) {
-        echo "do: ".$row["IBAN"]." ";
-        echo "kwota: ".$row["amount"]." ";
-        echo "data: ".$row["data"]." ";
-        echo "tytulem: ".$row["tytulem"]." ";
-        echo "zatwierdzone: ".$row["wykonano"]." ";
+        echo "do: ".json_encode($row["IBAN"]." ");
+        echo "kwota: ".json_encode($row["amount"]." ");
+        echo "data: ".json_encode($row["data"]." ");
+        echo "tytulem: ".json_encode($row["tytulem"]." ");
+        echo "zatwierdzone: ".json_encode($row["wykonano"]." ");
         echo "<br>";
     }
 

@@ -8,6 +8,7 @@
 
 include("config.php");
 $token = $_GET['token'];
+$token = htmlspecialchars(strip_tags(mysqli_real_escape_string($db, $token)));
 $sql = "SELECT id FROM users WHERE pass_recovery_code = '$token'";
 $result = mysqli_query($db, $sql);
 if (!$result) {

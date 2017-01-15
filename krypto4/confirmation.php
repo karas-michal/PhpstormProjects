@@ -5,7 +5,10 @@
  * Date: 22.11.2016
  * Time: 00:33
  */
+include_once("libs/csrf/csrfprotector.php");
+
 include('session.php');
+csrfProtector::init();
 $myiban = $_SESSION['iban'];
 $mytytulem = $_SESSION['tytulem'];
 $myamount = $_SESSION['amount'];
